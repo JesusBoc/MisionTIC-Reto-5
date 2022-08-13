@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import co.edu.utp.misiontic2022.c2.model.ConexionDB;
 import co.edu.utp.misiontic2022.c2.model.ModeloDatos;
+import co.edu.utp.misiontic2022.c2.model.DAO.ComprasDAO;
 import co.edu.utp.misiontic2022.c2.model.DAO.LiderDAO;
 import co.edu.utp.misiontic2022.c2.model.DAO.ProyectoDAO;
 import co.edu.utp.misiontic2022.c2.view.TablaJPanel;
@@ -13,11 +14,13 @@ public class Controller {
     private ConexionDB conexionDB;
     private ArrayList<LiderDAO> lideres;
     private ArrayList<ProyectoDAO> proyectos;
+    private ArrayList<ComprasDAO> compras;
 
     public Controller(ConexionDB conexionDB){
         this.conexionDB = conexionDB;
         lideres = new ArrayList<LiderDAO>();
         proyectos = new ArrayList<ProyectoDAO>();
+        compras = new ArrayList<ComprasDAO>();
     }
 
     private void llenarLideres(){
@@ -54,6 +57,22 @@ public class Controller {
             e.printStackTrace();
         }
     }
+    private void llenarCompras(){
+        ResultSet result = ComprasDAO.ejecutarConsulta(conexionDB);
+        if(!compras.isEmpty()){
+            compras.clear();
+        }
+        try {
+            while(result.next()){
+                Integer id = result.getInt(1);
+                String constructora = result.getString(2);
+                String bancoVinculado = result.getString(3);
+                compras.add(new ComprasDAO(id, constructora, bancoVinculado));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     public String[][] lideresToString() {
         llenarLideres();
         String[][] out = new String[lideres.size()][4];
@@ -67,6 +86,14 @@ public class Controller {
         String[][] out = new String[proyectos.size()][4];
         for (int i = 0; i < out.length; i++) {
             out[i] = proyectos.get(i).getData();
+        }
+        return out;
+    }
+    public String[][] comprasToString() {
+        llenarCompras();
+        String[][] out = new String[compras.size()][3];
+        for(int i = 0; i<compras.size(); i++){
+            out[i] = compras.get(i).getData();
         }
         return out;
     }
@@ -86,6 +113,10 @@ public class Controller {
                 break;
             case "Informe 2":
                 datos = new ModeloDatos(proyectosToString(),ProyectoDAO.headers);
+                break;
+            case "Informe 3":
+                datos = new ModeloDatos(comprasToString(), ComprasDAO.headers);
+                break;
         }
         TablaJPanel tabla = new TablaJPanel(datos, this);
         return tabla;

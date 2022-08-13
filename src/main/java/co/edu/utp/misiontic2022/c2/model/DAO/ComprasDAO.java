@@ -18,7 +18,6 @@ public class ComprasDAO extends Compras{
         ResultSet result = null;
         try {
             String sql = "SELECT c.ID_Compra, p.Constructora, p.Banco_Vinculado FROM Compra c JOIN Proyecto p ON c.ID_Proyecto  = p.ID_Proyecto WHERE Proveedor = 'Homecenter' AND p.Ciudad = 'Salento';";
-            System.out.println(sql);
             Statement stmt = conexionDB.getConexion().createStatement();
             result = stmt.executeQuery(sql);
         } catch (SQLException e) {

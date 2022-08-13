@@ -5,13 +5,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import co.edu.utp.misiontic2022.c2.model.ConexionDB;
+import co.edu.utp.misiontic2022.c2.model.ModeloDatos;
 import co.edu.utp.misiontic2022.c2.model.DAO.LiderDAO;
+import co.edu.utp.misiontic2022.c2.view.TablaJPanel;
 
-public class LiderController {
+public class Controller {
     private ConexionDB conexionDB;
     private ArrayList<LiderDAO> lideres;
 
-    public LiderController(ConexionDB conexionDB){
+    public Controller(ConexionDB conexionDB){
         this.conexionDB = conexionDB;
         lideres = new ArrayList<LiderDAO>();
     }
@@ -33,7 +35,7 @@ public class LiderController {
         }
         try {
             while(result.next()){
-                Integer id = result.getInt(1);
+                String id = result.getString(1);
                 String nombre = result.getString(2);
                 String apellido = result.getString(3);
                 String ciudad = result.getString(4);
@@ -44,9 +46,33 @@ public class LiderController {
         }
     }
 
-    
-
     public String[] headers(){
         return LiderDAO.headers;
+    }
+
+    public String[][] getData() {
+        ResultSet result = LiderDAO.ejecutarConsulta(conexionDB);
+        llenarArray(result);
+        String[][] out = new String[lideres.size()][4];
+        for(int i = 0; i<lideres.size(); i++){
+            out[i] = lideres.get(i).getData();
+        }
+        return out;
+    }
+    public String[][] obtenerDatosModelo(ModeloDatos modelo){
+        return modelo.getDatos();
+    }
+    public String[] obtenerTitulosModelo(ModeloDatos modelo){
+        return modelo.getHeaders();
+    }
+
+    public TablaJPanel construirPanel(String actionCommand){
+        ModeloDatos datos = null;
+        switch(actionCommand){
+            case "Informe 1":
+                datos = new ModeloDatos(lideres);
+        }
+        TablaJPanel tabla = new TablaJPanel(datos, this);
+        return tabla;
     }
 }

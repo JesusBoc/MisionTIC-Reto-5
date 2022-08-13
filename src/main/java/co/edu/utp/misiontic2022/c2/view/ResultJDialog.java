@@ -11,6 +11,7 @@ public class ResultJDialog extends JDialog{
         setTitle(title);
         getContentPane().add(panel, BorderLayout.CENTER);
         setSize(800,500);
+        setLocationRelativeTo(owner);
         setVisible(true);
     }
 }

@@ -15,10 +15,7 @@ public class MenuJFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    /**
-     * Creates new form MenuJFrame
-     * @param controller
-     */
+
     public MenuJFrame(Controller controller) {
         initComponents();
         this.controller = controller;
@@ -73,6 +70,8 @@ public class MenuJFrame extends javax.swing.JFrame {
         );
 
         pack();
+        setTitle("Selección de Informes Reto 5");
+        setLocationRelativeTo(null);
         setVisible(true);
     }
 

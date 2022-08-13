@@ -1,23 +1,23 @@
 package co.edu.utp.misiontic2022.c2.model;
 
 public class Lider {
-    private String id;
+    private Integer id;
     private String nombre;
     private String apellido;
     private String ciudad;
 
-    public Lider(String id, String nombre, String apellido, String ciudad) {
+    public Lider(Integer id, String nombre, String apellido, String ciudad) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.ciudad = ciudad;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

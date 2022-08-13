@@ -79,7 +79,5 @@ public class MenuJFrame extends javax.swing.JFrame {
     private void ButtonActionPerformed(java.awt.event.ActionEvent evt) {
         TablaJPanel tabla = controller.construirPanel(evt.getActionCommand());
         new ResultJDialog(this,tabla,evt.getActionCommand());
-        
-
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }
 }

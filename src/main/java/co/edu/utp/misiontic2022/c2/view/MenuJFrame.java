@@ -1,15 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package co.edu.utp.misiontic2022.c2.view;
 
 import co.edu.utp.misiontic2022.c2.controller.Controller;
 
-/**
- *
- * @author USUARIO
- */
 public class MenuJFrame extends javax.swing.JFrame {
     private Controller controller;
     private javax.swing.JButton jButton1;
